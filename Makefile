@@ -6,7 +6,7 @@
 #    By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/21 13:52:45 by gaudry            #+#    #+#              #
-#    Updated: 2019/12/21 15:15:29 by gaudry           ###   ########.fr        #
+#    Updated: 2019/12/23 17:39:47 by gaudry           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,17 +18,17 @@ MAIN = main.c
 
 LIB = ./libft/
 
-FLAGS = -lmlx -framework OpenGl -framework AppKit
+FLAGS = -g -I minilibx_macos -L minilibx_macos -lmlx -framework OpenGl -framework AppKit
 
 all: $(NAME)
 $(NAME):
-	gcc -o $(NAME) $(MAIN) $(FLAGS)
+	gcc -o $(NAME) $(MAIN) $(FLAGS) ./libft/libft.a
 
 clean:
 	@$(MAKE) -C $(LIB) clean
 
 fclean: clean
-	@$(MAKE) -C $(LIB) fclean
+	#@$(MAKE) -C $(LIB) fclean
 	rm -f $(NAME)
 
 re: fclean all
