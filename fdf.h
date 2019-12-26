@@ -6,7 +6,7 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:45:24 by gaudry            #+#    #+#             */
-/*   Updated: 2019/12/25 21:53:27 by gaudry           ###   ########.fr       */
+/*   Updated: 2019/12/26 20:18:43 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ typedef struct		s_cor
 	int				y_beg;
 	int				x_end;
 	int				y_end;
+	int				deltaX;
+	int				deltaY;
+	int				signX;
+	int				signY;
+	int				error
 }					t_cor;
 
 typedef struct		s_xyz
@@ -55,7 +60,6 @@ typedef struct		s_xyz
 typedef struct		s_map
 {
 	char			**str;
-	int				count;
 	struct s_map	*next;
 }					t_map;
 
@@ -66,7 +70,6 @@ typedef struct		s_fdf
 	int				zoom;
 	int				width;
 	int				height;
-	t_cor			cor;
 }					t_fdf;
 
 #endif
