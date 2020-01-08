@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:45:24 by gaudry            #+#    #+#             */
-/*   Updated: 2019/12/25 21:53:27 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/08 23:21:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 
 # define KEYCODE_ESC 53
+# define KEYCODE_ISO 34
 # define KEYCODE_PLUS 69
 # define KEYCODE_MINUS 78
 # define KEYCODE_RIGHT_ARROW 124
@@ -68,5 +69,12 @@ typedef struct		s_fdf
 	int				height;
 	t_cor			cor;
 }					t_fdf;
+
+typedef struct		s_color
+{
+	unsigned char R;
+	unsigned char G;
+	unsigned char B;
+}					t_color;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:47:52 by gaudry            #+#    #+#             */
-/*   Updated: 2019/12/25 21:53:27 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/08 23:28:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ void	print_map(t_fdf *fdf, t_map *map)
 		while(map->str[y])
 		{
 			if (x != fdf->width - 1)
-				print_line(new_xyz(x, y, ), fdf, get_color()),
-					new_xyz(x + 1, y, map), fdf, get_color());
+				print_line(fdf, new_xyz(x, y, ),
+					new_xyz(x + 1, y, map), get_color());
 			if (y != fdf->height - 1)
 				print_line(project(new_xyz(x, y, map), fdf),
 					project(new_point(x, y + 1, map), fdf), fdf);
