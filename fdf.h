@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:45:24 by gaudry            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/01/08 23:21:14 by marvin           ###   ########.fr       */
-=======
-/*   Updated: 2019/12/26 20:18:43 by gaudry           ###   ########.fr       */
->>>>>>> b27769e389fc4a7829701ab9376c4be04b19f193
+/*   Updated: 2020/01/10 20:35:28 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +20,6 @@
 # include <fcntl.h>
 
 # define KEYCODE_ESC 53
-# define KEYCODE_ISO 34
 # define KEYCODE_PLUS 69
 # define KEYCODE_MINUS 78
 # define KEYCODE_RIGHT_ARROW 124
@@ -49,7 +44,7 @@ typedef struct		s_cor
 	int				deltaY;
 	int				signX;
 	int				signY;
-	int				error
+	int				error;
 }					t_cor;
 
 typedef struct		s_xyz
@@ -74,7 +69,13 @@ typedef struct		s_fdf
 	void			*win_ptr;
 	int				zoom;
 	int				width;
+	int				map_width;
+	int				map_height;
 	int				height;
+	int				x_move;
+	int				y_move;
+	t_map			*map;
+	float			z_height;
 }					t_fdf;
 
 typedef struct		s_color
@@ -82,6 +83,6 @@ typedef struct		s_color
 	unsigned char R;
 	unsigned char G;
 	unsigned char B;
-}					t_color;
+}
 
 #endif
