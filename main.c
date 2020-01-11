@@ -6,7 +6,7 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:47:52 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/10 20:32:07 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/11 17:00:39 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,14 @@ void	*new_dot(t_xyz *xyz, t_fdf *fdf, char **map)
 	xyz->x *= fdf->zoom;
 	xyz->y *= fdf->zoom;
 	xyz->z *= fdf->zoom / fdf->z_height;
-	xyz->x += fdf->width / 4;
-	xyz->y += fdf->height / 4;
+	xyz->x -= (fdf->map_width * fdf->zoom) / 2;
+	xyz->y -= (fdf->map_height * fdf->zoom) / 2;
 	rotate_x(&xyz->y, &xyz->z, xyz->alpha);
 	rotate_y(&xyz->x, &xyz->z, xyz->beta);
 	rotate_z(&xyz->x, &xyz->y, xyz->gamma);
 	iso(&xyz->x, &xyz->y, xyz->z);
+	xyz->x += (fdf->width) / 2 + fdf->x_move;
+	xyz->y += (fdf->height + fdf->map_height * fdf->zoom) / 2 + fdf->y_move;
 }
 
 t_cor	*new_xyz(t_xyz xyz, int x_end, int y_end, t_fdf *fdf)
@@ -239,6 +241,7 @@ void	read_map(int fd, t_fdf *fdf, t_map *map, t_map *begin)
 	a = 0;
 	while (map->str[a++])
 		fdf->map_width++;
+	fdf->zoom = (fdf->width / 3) / fdf->map_width;
 	fdf->mlx_ptr = mlx_init();
 	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, fdf->width, fdf->height, "fdf");
 	print_map(fdf, begin);

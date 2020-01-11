@@ -6,7 +6,7 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:45:24 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/10 20:35:28 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/11 16:32:45 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,6 @@ typedef struct		s_color
 	unsigned char R;
 	unsigned char G;
 	unsigned char B;
-}
+}					t_color;
 
 #endif

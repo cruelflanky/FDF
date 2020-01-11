@@ -43,3 +43,5 @@ int		main(void)
 	print_line(&fdf, &cor, 0xFF0100);
 	mlx_loop(fdf.mlx_ptr);
 }
+
+fdf->map_width * x = fdf->width
