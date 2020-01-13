@@ -27,6 +27,30 @@ void	print_line(t_fdf *fdf, t_cor *cor, int color)
 	}
 }
 
+void	print_map(t_fdf *fdf, t_map *begin)
+{
+	t_xyz	xyz;
+	t_map	begin;
+
+	xyz.y = 0;
+	xyz.z = 0;
+	while(begin != NULL)
+	{
+		fdf->map = begin;
+		xyz.x = 0;
+		while(xyz.x != fdf->map_width)
+		{
+			if (xyz.x != fdf->map_width - 1)
+				print_line(fdf, new_xyz(xyz, xyz.x + 1, xyz.y, fdf), 0xe7eb00);
+			if (xyz.y != fdf->map_height - 1)
+				print_line(fdf, new_xyz(xyz, xyz.x, xyz.y + 1, fdf), 0xe7eb00);
+			xyz.x++;
+		}
+		begin = begin->next;
+		xyz.y++;
+	}
+}
+
 int		main(void)
 {
 	t_fdf	fdf;

@@ -6,7 +6,7 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:47:52 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/11 17:00:39 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/13 22:13:10 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,16 +98,17 @@ static void	iso(int *x, int *y, int z)
 
 void	*new_dot(t_xyz *xyz, t_fdf *fdf, char **map)
 {
-	xyz->z = ft_atoi(map[xyz->x]);
+	(xyz->z == 0) ? xyz->z = ft_atoi(map[xyz->x]) : 0;
 	xyz->x *= fdf->zoom;
 	xyz->y *= fdf->zoom;
-	xyz->z *= fdf->zoom / fdf->z_height;
+	xyz->z *= fdf->zoom + fdf->z_height;
 	xyz->x -= (fdf->map_width * fdf->zoom) / 2;
 	xyz->y -= (fdf->map_height * fdf->zoom) / 2;
-	rotate_x(&xyz->y, &xyz->z, xyz->alpha);
-	rotate_y(&xyz->x, &xyz->z, xyz->beta);
-	rotate_z(&xyz->x, &xyz->y, xyz->gamma);
-	iso(&xyz->x, &xyz->y, xyz->z);
+	rotate_x(&xyz->y, &xyz->z, fdf->alpha);
+	rotate_y(&xyz->x, &xyz->z, fdf->beta);
+	rotate_z(&xyz->x, &xyz->y, fdf->gamma);
+	if (!fdf->paralel)
+		iso(&xyz->x, &xyz->y, xyz->z);
 	xyz->x += (fdf->width) / 2 + fdf->x_move;
 	xyz->y += (fdf->height + fdf->map_height * fdf->zoom) / 2 + fdf->y_move;
 }
@@ -124,6 +125,7 @@ t_cor	*new_xyz(t_xyz xyz, int x_end, int y_end, t_fdf *fdf)
 	num->y_beg = xyz.y;
 	xyz.x = x_end;
 	xyz.y = y_end;
+	xyz.z = 0;
 	if (y_end > y_beg)
 		new_dot(&xyz, fdf, fdf->map->next->str);
 	else
@@ -163,12 +165,11 @@ void	print_line(t_fdf *fdf, t_cor *cor, int color)
 void	print_map(t_fdf *fdf, t_map *map)
 {
 	t_xyz	xyz;
+	t_cor	*cor;
 
 	xyz.y = 0;
 	xyz.z = 0;
-	xyz.alpha = 0;
-	xyz.beta = 0;
-	xyz.gamma = 0;
+	fdf->begin = map;
 	while(map != NULL)
 	{
 		fdf->map = map;
@@ -176,14 +177,16 @@ void	print_map(t_fdf *fdf, t_map *map)
 		while(xyz.x != fdf->map_width)
 		{
 			if (xyz.x != fdf->map_width - 1)
-				print_line(fdf, new_xyz(xyz, xyz.x + 1, xyz.y, fdf), 0xe7eb00);
+				print_line(fdf, cor = new_xyz(xyz, xyz.x + 1, xyz.y, fdf), 0xe7eb00);
 			if (xyz.y != fdf->map_height - 1)
-				print_line(fdf, new_xyz(xyz, xyz.x, xyz.y + 1, fdf), 0xe7eb00);
+				print_line(fdf, cor = new_xyz(xyz, xyz.x, xyz.y + 1, fdf), 0xe7eb00);
 			xyz.x++;
 		}
+
 		map = map->next;
 		xyz.y++;
 	}
+	fdf->map = fdf->begin;
 }
 
 void	ft_error()
@@ -217,13 +220,73 @@ t_fdf	*init_fdf(void)
 
 	fdf = (t_fdf *)ft_memalloc(sizeof(t_fdf));
 	fdf->map = NULL;
-	fdf->z_height = 1;
-	fdf->zoom = 20;
+	fdf->z_height = 0.5;
 	fdf->x_move = 0;
 	fdf->y_move = 0;
 	fdf->map_height = 0;
 	fdf->map_width = 0;
+	fdf->gamma = 0;
+	fdf->alpha = 0;
+	fdf->beta = 0;
+	fdf->paralel = 0;
+	fdf->count = 0;
 	return (fdf);
+}
+
+void	zoom_continue(t_fdf *fdf, t_xyz *xyz, t_map *map)
+{
+	int		old_xyz[3];
+
+	old_xyz[0] = xyz->x;
+	old_xyz[1] = xyz->y;
+	old_xyz[2] = xyz->z;
+	fdf->zoom = (fdf->width / 3) / fdf->map_width;
+	new_dot(xyz, fdf, map->str);
+	while (xyz->y > fdf->height)
+	{
+		xyz->x = old_xyz[0];
+		xyz->y = old_xyz[1];
+		xyz->z = old_xyz[2];
+		new_dot(xyz, fdf, map->str);
+		fdf->zoom--;
+	}
+	while (xyz->y < 0)
+	{
+		xyz->x = old_xyz[0];
+		xyz->y = old_xyz[1];
+		xyz->z = old_xyz[2];
+		new_dot(xyz, fdf, map->str);
+		fdf->zoom--;
+	}
+}
+
+void	zoom_check(t_fdf *fdf, t_map *begin)
+{
+	t_map	*map;
+	t_xyz	xyz;
+	t_xyz	new_xyz;
+	int		a;
+
+	xyz.y = 0;
+	xyz.z = 0;
+	map = begin;
+	while(map != NULL)
+	{
+		fdf->map = map;
+		xyz.x = 0;
+		while(xyz.x != fdf->map_width)
+		{
+			if (xyz.z < (a = ft_atoi(map->str[xyz.x])))
+			{
+				xyz.z = a;
+				new_xyz = xyz;
+			}
+			xyz.x++;
+		}
+		map = map->next;
+		xyz.y++;
+	}
+	zoom_continue(fdf, &new_xyz, begin);
 }
 
 void	read_map(int fd, t_fdf *fdf, t_map *map, t_map *begin)
@@ -241,10 +304,15 @@ void	read_map(int fd, t_fdf *fdf, t_map *map, t_map *begin)
 	a = 0;
 	while (map->str[a++])
 		fdf->map_width++;
-	fdf->zoom = (fdf->width / 3) / fdf->map_width;
+	zoom_check(fdf, begin);
 	fdf->mlx_ptr = mlx_init();
 	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr, fdf->width, fdf->height, "fdf");
 	print_map(fdf, begin);
+}
+
+void	setup_controls(t_fdf *fdf)
+{
+	mlx_hook(fdf->win_ptr, 2, 0, key_press, fdf);
 }
 
 int		main(int argc, char **argv)
@@ -263,6 +331,7 @@ int		main(int argc, char **argv)
 		fd = open(argv[1], O_RDONLY);
 		(fd <= 0) ? ft_error() : 0;
 		read_map(fd, fdf, map, begin);
+		setup_controls(fdf);
 		mlx_loop(fdf->mlx_ptr);
 	}
 	return (0);
