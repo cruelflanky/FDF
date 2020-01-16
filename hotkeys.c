@@ -6,7 +6,7 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 20:33:49 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/13 19:12:15 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/16 18:09:05 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,18 @@ void	ft_zoom(int key, t_fdf *fdf)
 		fdf->zoom--;
 	if (fdf->zoom < 1)
 		fdf->zoom = 1;
+	control_text(fdf);
 	print_map(fdf, fdf->map);
 }
 
+void	ft_color(int key, t_fdf *fdf)
+{
+	mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
+	if (key == KEYCODE_C)
+		fdf->color += 50000;
+	control_text(fdf);
+	print_map(fdf, fdf->map);
+}
 void	ft_move(int key, t_fdf *fdf)
 {
 	mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
@@ -35,34 +44,7 @@ void	ft_move(int key, t_fdf *fdf)
 		fdf->y_move -= 5;
 	else if (key == KEYCODE_DOWN_ARROW)
 		fdf->y_move += 5;
-	print_map(fdf, fdf->map);
-}
-
-void	ft_iso(int key, t_fdf *fdf)
-{
-	mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
-	fdf->gamma = 0;
-	fdf->alpha = 0;
-	fdf->beta = 0;
-	fdf->x_move = 0;
-	fdf->y_move = 0;
-	fdf->z_height = 0.5;
-	fdf->paralel = 0;
-	fdf->count = 0;
-	print_map(fdf, fdf->map);
-}
-
-void	ft_paralel(int key, t_fdf *fdf)
-{
-	mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
-	fdf->gamma = 0;
-	fdf->alpha = 0;
-	fdf->beta = 0;
-	fdf->x_move = 0;
-	fdf->y_move = 0;
-	fdf->z_height = 0.5;
-	fdf->paralel = 1;
-	fdf->count = 0;
+	control_text(fdf);
 	print_map(fdf, fdf->map);
 }
 
@@ -73,24 +55,7 @@ void	ft_z_height(int key, t_fdf *fdf)
 		fdf->z_height -= 1.5;
 	else if (key == KEYCODE_Z_HEIGHT_UP)
 		fdf->z_height += 1.5;
-	print_map(fdf, fdf->map);
-}
-
-void	ft_rotate(int key, t_fdf *fdf)
-{
-	mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
-	if (key == KEYCODE_2_NUM)
-		fdf->alpha += 0.05;
-	else if (key == KEYCODE_8_NUM)
-		fdf->alpha -= 0.05;
-	else if (key == KEYCODE_4_NUM)
-		fdf->beta -= 0.05;
-	else if (key == KEYCODE_6_NUM)
-		fdf->beta += 0.05;
-	else if (key == KEYCODE_1_NUM || key == KEYCODE_7_NUM)
-		fdf->gamma += 0.05;
-	else if (key == KEYCODE_3_NUM || key == KEYCODE_9_NUM)
-		fdf->gamma -= 0.05;
+	control_text(fdf);
 	print_map(fdf, fdf->map);
 }
 
@@ -114,5 +79,9 @@ int		key_press(int key, void *param)
 			key == KEYCODE_7_NUM || key == KEYCODE_9_NUM ||
 			key == KEYCODE_1_NUM || key == KEYCODE_3_NUM)
 		ft_rotate(key, fdf);
+	if (key == KEYCODE_C)
+		ft_color(key, fdf);
+	if (key == KEYCODE_T)
+		ft_text(key, fdf);
 	return (0);
 }
