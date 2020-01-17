@@ -6,7 +6,7 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:26:32 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/16 17:30:45 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/17 19:58:26 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	zoom_check_min(t_fdf *fdf, t_map *begin)
 	map = begin;
 	while (map->next != NULL)
 	{
+		//map_checker(fdf, map);
 		map = map->next;
 		xyz.y++;
 	}

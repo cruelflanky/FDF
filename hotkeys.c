@@ -6,7 +6,7 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 20:33:49 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/16 18:09:05 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/17 13:48:34 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	ft_z_height(int key, t_fdf *fdf)
 {
 	mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
 	if (key == KEYCODE_Z_HEIGHT_DOWN)
-		fdf->z_height -= 1.5;
+		fdf->z_height -= 0.1;
 	else if (key == KEYCODE_Z_HEIGHT_UP)
-		fdf->z_height += 1.5;
+		fdf->z_height += 0.1;
 	control_text(fdf);
 	print_map(fdf, fdf->map);
 }

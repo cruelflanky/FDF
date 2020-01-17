@@ -6,7 +6,7 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:45:24 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/16 17:40:49 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/17 18:42:38 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct		s_map
 {
 	char			**str;
 	struct s_map	*next;
+	int				color;
 }					t_map;
 
 typedef struct		s_fdf
