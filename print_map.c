@@ -6,7 +6,7 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:31:16 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/17 19:58:26 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/21 14:28:48 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,27 +89,6 @@ void	print_map(t_fdf *fdf, t_map *map)
 	fdf->map = fdf->begin;
 }
 
-// void	map_checker(t_fdf *fdf, t_map *map)
-// {
-// 	t_xyz	c;
-// 	char	**str;
-
-// 	str = map->str;
-// 	c.z = 0;
-// 	while(map->str[c.x])
-// 	{
-// 		c.y = 0;
-// 		while (str[c.x][c.y] >= '0' && str[c.x][c.y] <= '9'
-// 				|| str[c.x][c.y] == '-')
-// 		{
-
-// 			c.y++;
-// 		}
-// 		c.x++;
-// 	}
-// 	(c.x != fdf->width) ? ft_error : 0;
-// }
-
 void	read_map(int fd, t_fdf *fdf, t_map *map, t_map *begin)
 {
 	int		a;
@@ -125,7 +104,6 @@ void	read_map(int fd, t_fdf *fdf, t_map *map, t_map *begin)
 	a = 0;
 	while (map->str[a++])
 		fdf->map_width++;
-	//map_checker(fdf, begin);
 	zoom_check_max(fdf, begin);
 	zoom_check_min(fdf, begin);
 	fdf->mlx_ptr = mlx_init();

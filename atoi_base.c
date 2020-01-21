@@ -6,7 +6,7 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:50:28 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/17 19:57:17 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/21 12:52:12 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,4 @@ int		atoi_base(char *str, int base)
 		i--;
 	}
 	return (num);
-}
-
-int		main(void)
-{
-	ft_putnbr(atoi_base("FFFFFF", 16));
-	return (0);
 }

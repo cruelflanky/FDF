@@ -6,14 +6,43 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:47:52 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/16 18:05:14 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/21 15:42:26 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+int		map_checker(t_map *map, int x, int width)
+{
+	t_xyz	c;
+	char	**str;
+
+	str = map->str;
+	c.x = x;
+	c.y = 0;
+	if (x >= width || map == NULL)
+		return(0);
+	while ((str[c.x][c.y] >= '0' && str[c.x][c.y] <= '9')
+			|| str[c.x][c.y] == '-' || str[c.x][c.y] == ',')
+	{
+		c.y++;
+		if (str[c.x][c.y] == 'x' || str[c.x][c.y] == 'X')
+			return (atoi_base(&str[c.x][c.y + 2], 16));
+	}
+	return (0);
+}
+
 int		color(t_xyz xyz, t_fdf *fdf)
 {
+	int		a;
+
+	if ((a = map_checker(fdf->map, xyz.x, fdf->map_width)))
+	{
+		if (a == map_checker(fdf->map, xyz.x + 1, fdf->map_width))
+			return (a);
+		else if (a == map_checker(fdf->map->next, xyz.x, fdf->map_width))
+			return (a);
+	}
 	if (ft_atoi(fdf->map->str[xyz.x]) != 0)
 		return(fdf->color);
 	else

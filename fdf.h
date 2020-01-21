@@ -6,7 +6,7 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:45:24 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/17 18:42:38 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/21 15:38:35 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ typedef struct		s_map
 {
 	char			**str;
 	struct s_map	*next;
-	int				color;
 }					t_map;
 
 typedef struct		s_fdf
@@ -101,7 +100,7 @@ void				zoom_check_max(t_fdf *fdf, t_map *begin);
 void				zoom_continue(t_fdf *fdf, t_xyz *xyz, t_map *map, int zoom);
 void				read_map(int fd, t_fdf *fdf, t_map *map, t_map *begin);
 void				print_map(t_fdf *fdf, t_map *map);
-void				*new_dot(t_xyz *xyz, t_fdf *fdf, char **map);
+void				new_dot(t_xyz *xyz, t_fdf *fdf, char **map);
 static void			iso(int *x, int *y, int z);
 static void			rotate_z(int *x, int *y, double gamma);
 static void			rotate_y(int *x, int *z, double beta);
@@ -123,6 +122,9 @@ void				ft_rotate(int key, t_fdf *fdf);
 void				ft_paralel(int key, t_fdf *fdf);
 void				ft_iso(int key, t_fdf *fdf);
 int					color(t_xyz xyz, t_fdf *fdf);
+int					map_checker(t_map *map, int x, int width);
+int					atoi_base(char *str, int base);
+int					ft_power(int power, int num);
 void				ft_error();
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:28:39 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/17 13:48:34 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/21 15:38:10 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ static void	iso(int *x, int *y, int z)
 	*y = -z + (ex_x + ex_y) * sin(0.523599);
 }
 
-void	*new_dot(t_xyz *xyz, t_fdf *fdf, char **map)
+void	new_dot(t_xyz *xyz, t_fdf *fdf, char **map)
 {
 	(xyz->z == 0) ? xyz->z = ft_atoi(map[xyz->x]) : 0;
 	xyz->x *= fdf->zoom;
 	xyz->y *= fdf->zoom;
-	xyz->z *= fdf->zoom / fdf->z_height;
+	xyz->z *= fdf->zoom + fdf->z_height;
 	xyz->x -= (fdf->map_width * fdf->zoom) / 2;
 	xyz->y -= (fdf->map_height * fdf->zoom) / 2;
 	rotate_x(&xyz->y, &xyz->z, fdf->alpha);

@@ -6,7 +6,7 @@
 #    By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/21 13:52:45 by gaudry            #+#    #+#              #
-#    Updated: 2020/01/16 17:32:39 by gaudry           ###   ########.fr        #
+#    Updated: 2020/01/21 12:52:37 by gaudry           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = fdf
 
 MAIN = main.c
 
-SRC = hotkeys.c init.c controls.c checker.c projection.c print_map.c
+SRC = hotkeys.c init.c controls.c checker.c projection.c print_map.c atoi_base.c
 
 LIB = ./libft/
 
