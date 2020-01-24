@@ -6,11 +6,12 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 20:33:49 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/21 12:58:16 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/24 17:47:48 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../inc/fdf.h"
+#include "../inc/hotkeys.h"
 
 void	ft_zoom(int key, t_fdf *fdf)
 {
@@ -33,6 +34,7 @@ void	ft_color(int key, t_fdf *fdf)
 	control_text(fdf);
 	print_map(fdf, fdf->map);
 }
+
 void	ft_move(int key, t_fdf *fdf)
 {
 	mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);

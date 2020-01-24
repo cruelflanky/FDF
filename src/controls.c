@@ -6,11 +6,12 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:23:55 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/17 13:45:50 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/24 17:47:48 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../inc/fdf.h"
+#include "../inc/hotkeys.h"
 
 void	control_text(t_fdf *fdf)
 {

@@ -6,13 +6,13 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:26:32 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/21 14:28:48 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/24 17:46:31 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../inc/fdf.h"
 
-void	zoom_continue(t_fdf *fdf, t_xyz *xyz, t_map *map, int zoom)
+void		zoom_continue(t_fdf *fdf, t_xyz *xyz, t_map *map, int zoom)
 {
 	int		old_xyz[3];
 
@@ -39,7 +39,7 @@ void	zoom_continue(t_fdf *fdf, t_xyz *xyz, t_map *map, int zoom)
 	}
 }
 
-void	zoom_check_max(t_fdf *fdf, t_map *begin)
+void		zoom_check_max(t_fdf *fdf, t_map *begin)
 {
 	t_map	*map;
 	t_xyz	xyz;
@@ -49,11 +49,11 @@ void	zoom_check_max(t_fdf *fdf, t_map *begin)
 	xyz.y = 0;
 	xyz.z = 0;
 	map = begin;
-	while(map != NULL)
+	while (map != NULL)
 	{
 		fdf->map = map;
 		xyz.x = 0;
-		while(xyz.x != fdf->map_width)
+		while (xyz.x != fdf->map_width)
 		{
 			if (xyz.z < (a = ft_atoi(map->str[xyz.x])))
 			{
@@ -68,9 +68,9 @@ void	zoom_check_max(t_fdf *fdf, t_map *begin)
 	zoom_continue(fdf, &new_xyz, begin, 0);
 }
 
-void	zoom_check_min(t_fdf *fdf, t_map *begin)
+void		zoom_check_min(t_fdf *fdf, t_map *begin)
 {
-	t_map *map;
+	t_map	*map;
 	t_xyz	xyz;
 
 	xyz.y = 0;
@@ -86,13 +86,13 @@ void	zoom_check_min(t_fdf *fdf, t_map *begin)
 	zoom_continue(fdf, &xyz, begin, fdf->zoom);
 }
 
-int		check_params(char **argv, t_fdf *fdf)
+int			check_params(char **argv, t_fdf *fdf)
 {
-	int a;
+	int		a;
 
 	a = 0;
 	(!(argv[1])) ? ft_error() : 0;
-	(argv[2]) ? a = ft_atoi(argv[2]): 0;
+	(argv[2]) ? a = ft_atoi(argv[2]) : 0;
 	if (a > 0)
 		fdf->width = a;
 	else

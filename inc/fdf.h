@@ -6,43 +6,21 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:45:24 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/21 15:38:35 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/24 15:50:34 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# include "minilibx_macos/mlx.h"
-# include "libft/libft.h"
+# include "../minilibx_macos/mlx.h"
+# include "../libft/libft.h"
 # include "math.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
 
-# define KEYCODE_ESC 53
-# define KEYCODE_PLUS 69
-# define KEYCODE_MINUS 78
-# define KEYCODE_ISO 34
-# define KEYCODE_PARALEL 35
-# define KEYCODE_RIGHT_ARROW 124
-# define KEYCODE_LEFT_ARROW 123
-# define KEYCODE_UP_ARROW 126
-# define KEYCODE_DOWN_ARROW 125
-# define KEYCODE_8_NUM 91
-# define KEYCODE_7_NUM 89
-# define KEYCODE_9_NUM 92
-# define KEYCODE_1_NUM 83
-# define KEYCODE_3_NUM 85
-# define KEYCODE_2_NUM 84
-# define KEYCODE_6_NUM 88
-# define KEYCODE_4_NUM 86
-# define KEYCODE_C 8
-# define KEYCODE_T 17
-# define KEYCODE_Z_HEIGHT_DOWN 43
-# define KEYCODE_Z_HEIGHT_UP 47
-
-#define FULL_HD_WIDTH 1920
-#define FULL_HD_HEIGHT 1080
+# define FULL_HD_WIDTH 1920
+# define FULL_HD_HEIGHT 1080
 
 typedef struct		s_cor
 {
@@ -50,10 +28,10 @@ typedef struct		s_cor
 	int				y_beg;
 	int				x_end;
 	int				y_end;
-	int				deltaX;
-	int				deltaY;
-	int				signX;
-	int				signY;
+	int				deltax;
+	int				deltay;
+	int				signx;
+	int				signy;
 	int				error;
 }					t_cor;
 
@@ -69,6 +47,13 @@ typedef struct		s_map
 	char			**str;
 	struct s_map	*next;
 }					t_map;
+
+typedef struct		s_color
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+}					t_color;
 
 typedef struct		s_fdf
 {
@@ -93,7 +78,6 @@ typedef struct		s_fdf
 	int				color;
 }					t_fdf;
 
-
 int					check_params(char **argv, t_fdf *fdf);
 void				zoom_check_min(t_fdf *fdf, t_map *begin);
 void				zoom_check_max(t_fdf *fdf, t_map *begin);
@@ -105,7 +89,7 @@ static void			iso(int *x, int *y, int z);
 static void			rotate_z(int *x, int *y, double gamma);
 static void			rotate_y(int *x, int *z, double beta);
 static void			rotate_x(int *y, int *z, double alpha);
-void				print_line(t_fdf *fdf, t_cor *cor, int color);
+void				line(t_fdf *fdf, t_cor *cor, int color);
 t_cor				*new_xyz(t_xyz xyz, int x_end, int y_end, t_fdf *fdf);
 int					ft_list_push_left(t_map **begin_list, char **str);
 t_map				*ft_create_elem(char **str);
@@ -121,10 +105,15 @@ void				ft_text(int key, t_fdf *fdf);
 void				ft_rotate(int key, t_fdf *fdf);
 void				ft_paralel(int key, t_fdf *fdf);
 void				ft_iso(int key, t_fdf *fdf);
-int					color(t_xyz xyz, t_fdf *fdf);
+int					color(t_xyz xyz, t_fdf *fdf, char c);
 int					map_checker(t_map *map, int x, int width);
 int					atoi_base(char *str, int base);
+int					rgb_set(char *str, int base);
 int					ft_power(int power, int num);
+void				ft_strup(char *str);
+void				rgb_2(char *str, int base, int i, t_color *rgb);
+void				rgb_4(char *str, int base, int i, t_color *rgb);
+void				rgb_6(char *str, int base, int i, t_color *rgb);
 void				ft_error();
 
 #endif

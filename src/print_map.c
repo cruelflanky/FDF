@@ -6,13 +6,13 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:31:16 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/21 14:28:48 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/24 17:46:31 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../inc/fdf.h"
 
-t_cor	*new_xyz(t_xyz xyz, int x_end, int y_end, t_fdf *fdf)
+t_cor		*new_xyz(t_xyz xyz, int x_end, int y_end, t_fdf *fdf)
 {
 	t_cor	*num;
 	int		y_beg;
@@ -34,62 +34,60 @@ t_cor	*new_xyz(t_xyz xyz, int x_end, int y_end, t_fdf *fdf)
 	return (num);
 }
 
-void	print_line(t_fdf *fdf, t_cor *cor, int color)
+void		line(t_fdf *f, t_cor *c, int color)
 {
-	cor->deltaY = cor->y_end - cor->y_beg;
-	cor->deltaX = cor->x_end - cor->x_beg;
-	cor->signX = cor->x_beg < cor->x_end ? 1 : -1;
-	cor->signY = cor->y_beg < cor->y_end ? 1 : -1;
-	cor->deltaY < 0 ? cor->deltaY *= -1 : 0;
-	cor->deltaX < 0 ? cor->deltaX *= -1 : 0;
-	cor->error = cor->deltaX - cor->deltaY;
-	mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, cor->x_beg, cor->y_beg, color);
-	while(cor->x_beg != cor->x_end || cor->y_beg != cor->y_end)
+	c->deltay = c->y_end - c->y_beg;
+	c->deltax = c->x_end - c->x_beg;
+	c->signx = c->x_beg < c->x_end ? 1 : -1;
+	c->signy = c->y_beg < c->y_end ? 1 : -1;
+	c->deltay < 0 ? c->deltay *= -1 : 0;
+	c->deltax < 0 ? c->deltax *= -1 : 0;
+	c->error = c->deltax - c->deltay;
+	mlx_pixel_put(f->mlx_ptr, f->win_ptr, c->x_beg, c->y_beg, color);
+	while (c->x_beg != c->x_end || c->y_beg != c->y_end)
 	{
-		mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, cor->x_beg, cor->y_beg, color);
-		const int error2 = cor->error * 2;
-		if(error2 > -cor->deltaY)
+		mlx_pixel_put(f->mlx_ptr, f->win_ptr, c->x_beg, c->y_beg, color);
+		const int error2 = c->error * 2;
+		if (error2 > -c->deltay)
 		{
-			cor->error -= cor->deltaY;
-			cor->x_beg += cor->signX;
+			c->error -= c->deltay;
+			c->x_beg += c->signx;
 		}
-		if(error2 < cor->deltaX)
+		if (error2 < c->deltax)
 		{
-			cor->error += cor->deltaX;
-			cor->y_beg += cor->signY;
+			c->error += c->deltax;
+			c->y_beg += c->signy;
 		}
 	}
-	free(cor);
+	free(c);
 }
 
-void	print_map(t_fdf *fdf, t_map *map)
+void		print_map(t_fdf *fdf, t_map *map)
 {
-	t_xyz	xyz;
-	t_cor	*cor;
+	t_xyz	i;
 
-	xyz.y = 0;
-	xyz.z = 0;
+	i.y = 0;
+	i.z = 0;
 	fdf->begin = map;
-	while(map != NULL)
+	while (map != NULL)
 	{
 		fdf->map = map;
-		xyz.x = 0;
-		while(xyz.x != fdf->map_width)
+		i.x = 0;
+		while (i.x != fdf->map_width)
 		{
-			if (xyz.x != fdf->map_width - 1)
-				print_line(fdf, cor = new_xyz(xyz, xyz.x + 1, xyz.y, fdf), color(xyz, fdf));
-			if (xyz.y != fdf->map_height - 1)
-				print_line(fdf, cor = new_xyz(xyz, xyz.x, xyz.y + 1, fdf), color(xyz, fdf));
-			xyz.x++;
+			if (i.x != fdf->map_width - 1)
+				line(fdf, new_xyz(i, i.x + 1, i.y, fdf), color(i, fdf, 'x'));
+			if (i.y != fdf->map_height - 1)
+				line(fdf, new_xyz(i, i.x, i.y + 1, fdf), color(i, fdf, 'y'));
+			i.x++;
 		}
-
 		map = map->next;
-		xyz.y++;
+		i.y++;
 	}
 	fdf->map = fdf->begin;
 }
 
-void	read_map(int fd, t_fdf *fdf, t_map *map, t_map *begin)
+void		read_map(int fd, t_fdf *fdf, t_map *map, t_map *begin)
 {
 	int		a;
 	char	*line;

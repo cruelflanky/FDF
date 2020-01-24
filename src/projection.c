@@ -6,15 +6,15 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:28:39 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/21 15:38:10 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/24 17:46:31 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../inc/fdf.h"
 
 static void	rotate_x(int *y, int *z, double alpha)
 {
-	int ex_y;
+	int		ex_y;
 
 	ex_y = *y;
 	*y = ex_y * cos(alpha) + *z * sin(alpha);
@@ -23,7 +23,7 @@ static void	rotate_x(int *y, int *z, double alpha)
 
 static void	rotate_y(int *x, int *z, double beta)
 {
-	int ex_x;
+	int		ex_x;
 
 	ex_x = *x;
 	*x = ex_x * cos(beta) + *z * sin(beta);
@@ -32,8 +32,8 @@ static void	rotate_y(int *x, int *z, double beta)
 
 static void	rotate_z(int *x, int *y, double gamma)
 {
-	int ex_x;
-	int ex_y;
+	int		ex_x;
+	int		ex_y;
 
 	ex_x = *x;
 	ex_y = *y;
@@ -43,8 +43,8 @@ static void	rotate_z(int *x, int *y, double gamma)
 
 static void	iso(int *x, int *y, int z)
 {
-	int ex_x;
-	int ex_y;
+	int		ex_x;
+	int		ex_y;
 
 	ex_x = *x;
 	ex_y = *y;
@@ -52,7 +52,7 @@ static void	iso(int *x, int *y, int z)
 	*y = -z + (ex_x + ex_y) * sin(0.523599);
 }
 
-void	new_dot(t_xyz *xyz, t_fdf *fdf, char **map)
+void		new_dot(t_xyz *xyz, t_fdf *fdf, char **map)
 {
 	(xyz->z == 0) ? xyz->z = ft_atoi(map[xyz->x]) : 0;
 	xyz->x *= fdf->zoom;

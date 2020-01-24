@@ -6,11 +6,11 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:47:52 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/21 15:42:26 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/24 17:46:31 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../inc/fdf.h"
 
 int		map_checker(t_map *map, int x, int width)
 {
@@ -21,35 +21,38 @@ int		map_checker(t_map *map, int x, int width)
 	c.x = x;
 	c.y = 0;
 	if (x >= width || map == NULL)
-		return(0);
+		return (0);
 	while ((str[c.x][c.y] >= '0' && str[c.x][c.y] <= '9')
 			|| str[c.x][c.y] == '-' || str[c.x][c.y] == ',')
 	{
 		c.y++;
 		if (str[c.x][c.y] == 'x' || str[c.x][c.y] == 'X')
-			return (atoi_base(&str[c.x][c.y + 2], 16));
+			return (rgb_set(&str[c.x][c.y + 1], 16));
 	}
 	return (0);
 }
 
-int		color(t_xyz xyz, t_fdf *fdf)
+int		color(t_xyz xyz, t_fdf *fdf, char c)
 {
 	int		a;
 
 	if ((a = map_checker(fdf->map, xyz.x, fdf->map_width)))
 	{
-		if (a == map_checker(fdf->map, xyz.x + 1, fdf->map_width))
+		if (a == map_checker(fdf->map, xyz.x + 1, fdf->map_width)
+			&& c == 'x')
 			return (a);
-		else if (a == map_checker(fdf->map->next, xyz.x, fdf->map_width))
-			return (a);
+		if (fdf->map->next)
+			if (a == map_checker(fdf->map->next, xyz.x, fdf->map_width)
+				&& c == 'y')
+				return (a);
 	}
 	if (ft_atoi(fdf->map->str[xyz.x]) != 0)
-		return(fdf->color);
+		return (fdf->color);
 	else
-		return(fdf->color + 10551242);
+		return (fdf->color + 10551242);
 }
 
-void	ft_error()
+void	ft_error(void)
 {
 	ft_putstr("error\n");
 	exit(EXIT_FAILURE);
