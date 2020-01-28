@@ -6,13 +6,14 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:28:39 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/24 17:46:31 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/28 16:49:22 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "math.h"
+#include "fdf.h"
 
-static void	rotate_x(int *y, int *z, double alpha)
+void		rotate_x(int *y, int *z, double alpha)
 {
 	int		ex_y;
 
@@ -21,7 +22,7 @@ static void	rotate_x(int *y, int *z, double alpha)
 	*z = -ex_y * sin(alpha) + *z * cos(alpha);
 }
 
-static void	rotate_y(int *x, int *z, double beta)
+void		rotate_y(int *x, int *z, double beta)
 {
 	int		ex_x;
 
@@ -30,7 +31,7 @@ static void	rotate_y(int *x, int *z, double beta)
 	*z = -ex_x * sin(beta) + *z * cos(beta);
 }
 
-static void	rotate_z(int *x, int *y, double gamma)
+void		rotate_z(int *x, int *y, double gamma)
 {
 	int		ex_x;
 	int		ex_y;
@@ -41,7 +42,7 @@ static void	rotate_z(int *x, int *y, double gamma)
 	*y = ex_x * sin(gamma) + ex_y * cos(gamma);
 }
 
-static void	iso(int *x, int *y, int z)
+void		iso(int *x, int *y, int z)
 {
 	int		ex_x;
 	int		ex_y;

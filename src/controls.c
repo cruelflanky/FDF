@@ -6,12 +6,12 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:23:55 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/24 17:47:48 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/26 17:05:58 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
-#include "../inc/hotkeys.h"
+#include "fdf.h"
+#include "hotkeys.h"
 
 void	control_text(t_fdf *fdf)
 {
@@ -34,7 +34,7 @@ void	control_text(t_fdf *fdf)
 	}
 }
 
-void	ft_iso(int key, t_fdf *fdf)
+void	ft_iso(t_fdf *fdf)
 {
 	mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
 	fdf->gamma = 0;
@@ -50,7 +50,7 @@ void	ft_iso(int key, t_fdf *fdf)
 	print_map(fdf, fdf->map);
 }
 
-void	ft_paralel(int key, t_fdf *fdf)
+void	ft_paralel(t_fdf *fdf)
 {
 	mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
 	fdf->gamma = 0;
@@ -85,7 +85,7 @@ void	ft_rotate(int key, t_fdf *fdf)
 	print_map(fdf, fdf->map);
 }
 
-void	ft_text(int key, t_fdf *fdf)
+void	ft_text(t_fdf *fdf)
 {
 	mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
 	fdf->text *= -1;

@@ -6,11 +6,13 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:47:52 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/24 17:46:31 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/28 16:47:09 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "fdf.h"
+#include "hotkeys.h"
+#include "mlx.h"
 
 int		map_checker(t_map *map, int x, int width)
 {
@@ -52,9 +54,16 @@ int		color(t_xyz xyz, t_fdf *fdf, char c)
 		return (fdf->color + 10551242);
 }
 
-void	ft_error(void)
+void	ft_error(char *str)
 {
-	ft_putstr("error\n");
+	if (ft_strcmp(str, "map") == 0)
+		ft_putendl("Map error");
+	else if (ft_strcmp(str, "argv") == 0)
+		ft_putendl("Wrong arguments");
+	else if (ft_strcmp(str, "file") == 0)
+		ft_putendl("File error");
+	else
+		ft_putendl("error");
 	exit(EXIT_FAILURE);
 }
 
@@ -68,16 +77,18 @@ int		main(int argc, char **argv)
 	map = NULL;
 	fdf = init_fdf();
 	begin = map;
-	if (argc >= 2)
+	if (argc >= 2 && argc <= 4)
 	{
 		check_params(argv, fdf);
 		fd = open(argv[1], O_RDONLY);
-		(fd <= 0) ? ft_error() : 0;
+		(fd <= 0) ? ft_error("file") : 0;
 		read_map(fd, fdf, map, begin);
 		control_text(fdf);
 		mlx_hook(fdf->win_ptr, 2, 0, key_press, fdf);
 		mlx_loop(fdf->mlx_ptr);
 		free(fdf);
 	}
+	else
+		ft_error("argv");
 	return (0);
 }

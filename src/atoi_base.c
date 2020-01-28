@@ -6,11 +6,11 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:50:28 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/24 17:46:31 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/26 15:53:16 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "fdf.h"
 
 void	ft_strup(char *str)
 {

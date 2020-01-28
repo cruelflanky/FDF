@@ -6,11 +6,11 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:20:44 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/24 17:46:31 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/28 16:43:29 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "fdf.h"
 
 t_fdf	*init_fdf(void)
 {
@@ -41,6 +41,7 @@ t_cor	*init_cor(void)
 	cor->deltax = 0;
 	cor->deltay = 0;
 	cor->error = 0;
+	cor->error2 = 0;
 	cor->signx = 0;
 	cor->signy = 0;
 	cor->x_beg = 0;

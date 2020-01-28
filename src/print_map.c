@@ -6,11 +6,11 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:31:16 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/24 17:46:31 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/28 16:43:52 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "fdf.h"
 
 t_cor		*new_xyz(t_xyz xyz, int x_end, int y_end, t_fdf *fdf)
 {
@@ -47,13 +47,13 @@ void		line(t_fdf *f, t_cor *c, int color)
 	while (c->x_beg != c->x_end || c->y_beg != c->y_end)
 	{
 		mlx_pixel_put(f->mlx_ptr, f->win_ptr, c->x_beg, c->y_beg, color);
-		const int error2 = c->error * 2;
-		if (error2 > -c->deltay)
+		c->error2 = c->error * 2;
+		if (c->error2 > -c->deltay)
 		{
 			c->error -= c->deltay;
 			c->x_beg += c->signx;
 		}
-		if (error2 < c->deltax)
+		if (c->error2 < c->deltax)
 		{
 			c->error += c->deltax;
 			c->y_beg += c->signy;
@@ -94,14 +94,13 @@ void		read_map(int fd, t_fdf *fdf, t_map *map, t_map *begin)
 
 	while ((a = get_next_line(fd, &line)))
 	{
+		(a < 0) ? ft_error("argv") : 0;
 		ft_list_push_left(&map, ft_strsplit(line, ' '));
 		(!begin) ? begin = map : 0;
 		ft_strdel(&line);
 		fdf->map_height++;
 	}
-	a = 0;
-	while (map->str[a++])
-		fdf->map_width++;
+	mapcheck(map, fdf);
 	zoom_check_max(fdf, begin);
 	zoom_check_min(fdf, begin);
 	fdf->mlx_ptr = mlx_init();

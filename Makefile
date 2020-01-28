@@ -5,72 +5,75 @@
 #                                                     +:+ +:+         +:+      #
 #    By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/12/21 13:52:45 by gaudry            #+#    #+#              #
-#    Updated: 2020/01/24 17:07:17 by gaudry           ###   ########.fr        #
+#    Created: 2018/07/05 13:39:23 by vbrazhni          #+#    #+#              #
+#    Updated: 2020/01/28 15:04:18 by gaudry           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
-CC = gcc
+LIBFT = $(LIBDIR)libft.a
+LIBDIR = ./libft/
+LIBHEAD = $(LIBDIR)
+
+MINILIBX = $(MINILIBX_DIRECTORY)libmlx.a
+MINILIBX_DIRECTORY = ./minilibx_macos/
+MINILIBX_HEADERS = $(MINILIBX_DIRECTORY)
+
+HEADNAME = fdf.h\
+	hotkeys.h
+HEADDIR = ./inc/
+HEADERS = $(addprefix $(HEADDIR), $(HEADNAME))
 
 SRCDIR = ./src/
 SRCNAME = main.c\
+	atoi_base.c\
+	checker.c\
+	controls.c\
 	hotkeys.c\
 	init.c\
-	controls.c\
-	checker.c\
-	projection.c\
 	print_map.c\
-	atoi_base.c\
+	projection.c\
 	rgb.c
-SRC = $(addprefix $(SRCDIR), $(SRCNAME))
+SOURCES = $(addprefix $(SRCDIR), $(SRCNAME))
 
-OBJNAME = $(SRS:.c=.o)
-OBJDIR = ./obj/
+OBJDIR = obj/
+OBJNAME = $(patsubst %.c, %.o, $(SRCNAME))
 OBJECTS	= $(addprefix $(OBJDIR), $(OBJNAME))
 
-HEADNAME = fdf.h\
-	hotkeys.h\
-HEADIR = ./inc/
-LIBDIR = ./libft/
-LIB = $(LIBDIR)libft.a
-HEADERS = $(addprefix $(HEADDIR), $(HEADNAME))
-
-MINILIBXDIR = ./minilibx_macos/
-MINILIBFLAGS = -lmlx -framework OpenGl -framework AppKit
-MINILIBX = $(MINILIBXDIR)libmlx.a
-
-INCLUDES = -I$(HEADDIR) -I$(LIBDIR) -I$(MINILIBXDIR)
-LIBAS = -L $(LIBDIR) -L $(MINILIBXDIR)
-FLAGS = -g -Wall -Wextra -Werror $(MINILIBFLAGS)
+CC = gcc
+FLAGS = -g -Wall -Werror -Wextra
+LIBRARIES = -lmlx -lm -lft -L$(LIBDIR) -L$(MINILIBX_DIRECTORY) -framework OpenGL -framework AppKit
+INCLUDES = -I$(HEADDIR) -I$(LIBHEAD) -I$(MINILIBX_HEADERS)
 
 all: $(NAME)
 
-$(NAME): $(OBJDIR) $(LIB) $(MINILIBX)
-	$(CC) $(FLAGS) $(LIBAS) $(INCLUDES) $(OBJECTS) -o $(NAME)
+$(NAME): $(LIBFT) $(MINILIBX) $(OBJDIR) $(OBJECTS)
+	@$(CC) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJECTS) -o $(NAME)
+
 
 $(OBJDIR):
-	@if [ ! -d $(OBJDIR) ]; then \
-		mkdir $(OBJDIR); \
-	fi
-	$(CC) $(FLAGS) -c $(INCLUDES) $(SRCDIR)%.c $(HEADERS) -o $(OBJDIR)%.o
+	@mkdir -p $(OBJDIR)
 
-$(LIB):
+$(OBJDIR)%.o : $(SRCDIR)%.c $(HEADERS)
+	@$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
+
+$(LIBFT):
 	@$(MAKE) -C $(LIBDIR)
 
 $(MINILIBX):
-	@$(MAKE) -C $(MINILIBXDIR)
+	@$(MAKE) -C $(MINILIBX_DIRECTORY)
+
 clean:
-	@$(MAKE) -C $(LIB) clean
-	@$(MAKE) -C $(MINILIBXDIR) clean
+	@$(MAKE) -C $(LIBDIR) clean
+	@$(MAKE) -C $(MINILIBX_DIRECTORY) clean
 	@rm -rf $(OBJDIR)
 
 fclean: clean
-	@rm -f $(LIB)
 	@rm -f $(MINILIBX)
-	rm -f $(NAME)
+	@rm -f $(LIBFT)
+	@rm -f $(NAME)
 
 re:
-	$(MAKE) fclean
-	$(MAKE) all
+	@$(MAKE) fclean
+	@$(MAKE) all

@@ -6,11 +6,34 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 17:26:32 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/24 17:46:31 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/28 16:20:37 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
+#include "fdf.h"
+
+void		mapcheck(t_map *begin, t_fdf *fdf)
+{
+	t_map	*map;
+	t_xyz	xyz;
+	int		a;
+
+	xyz.y = 0;
+	a = 0;
+	map = begin;
+	while (map->str[a++])
+		fdf->map_width++;
+	while (map != NULL)
+	{
+		fdf->map = map;
+		xyz.x = 0;
+		while (map->str[xyz.x])
+			xyz.x++;
+		(xyz.x != fdf->map_width) ? ft_error("map") : 0;
+		map = map->next;
+		xyz.y++;
+	}
+}
 
 void		zoom_continue(t_fdf *fdf, t_xyz *xyz, t_map *map, int zoom)
 {
@@ -91,7 +114,7 @@ int			check_params(char **argv, t_fdf *fdf)
 	int		a;
 
 	a = 0;
-	(!(argv[1])) ? ft_error() : 0;
+	(!(argv[1])) ? ft_error("argv") : 0;
 	(argv[2]) ? a = ft_atoi(argv[2]) : 0;
 	if (a > 0)
 		fdf->width = a;

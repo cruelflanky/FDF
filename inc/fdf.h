@@ -6,7 +6,7 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:45:24 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/24 15:50:34 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/28 16:43:29 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct		s_cor
 	int				signx;
 	int				signy;
 	int				error;
+	int				error2;
 }					t_cor;
 
 typedef struct		s_xyz
@@ -78,6 +79,7 @@ typedef struct		s_fdf
 	int				color;
 }					t_fdf;
 
+int					main(int argc, char **argv);
 int					check_params(char **argv, t_fdf *fdf);
 void				zoom_check_min(t_fdf *fdf, t_map *begin);
 void				zoom_check_max(t_fdf *fdf, t_map *begin);
@@ -85,10 +87,6 @@ void				zoom_continue(t_fdf *fdf, t_xyz *xyz, t_map *map, int zoom);
 void				read_map(int fd, t_fdf *fdf, t_map *map, t_map *begin);
 void				print_map(t_fdf *fdf, t_map *map);
 void				new_dot(t_xyz *xyz, t_fdf *fdf, char **map);
-static void			iso(int *x, int *y, int z);
-static void			rotate_z(int *x, int *y, double gamma);
-static void			rotate_y(int *x, int *z, double beta);
-static void			rotate_x(int *y, int *z, double alpha);
 void				line(t_fdf *fdf, t_cor *cor, int color);
 t_cor				*new_xyz(t_xyz xyz, int x_end, int y_end, t_fdf *fdf);
 int					ft_list_push_left(t_map **begin_list, char **str);
@@ -101,19 +99,20 @@ void				ft_move(int key, t_fdf *fdf);
 void				ft_z_height(int key, t_fdf *fdf);
 int					key_press(int key, void *param);
 void				control_text(t_fdf *fdf);
-void				ft_text(int key, t_fdf *fdf);
+void				ft_text(t_fdf *fdf);
 void				ft_rotate(int key, t_fdf *fdf);
-void				ft_paralel(int key, t_fdf *fdf);
-void				ft_iso(int key, t_fdf *fdf);
+void				ft_paralel(t_fdf *fdf);
+void				ft_iso(t_fdf *fdf);
 int					color(t_xyz xyz, t_fdf *fdf, char c);
 int					map_checker(t_map *map, int x, int width);
+void				mapcheck(t_map *begin, t_fdf *fdf);
 int					atoi_base(char *str, int base);
 int					rgb_set(char *str, int base);
 int					ft_power(int power, int num);
 void				ft_strup(char *str);
-void				rgb_2(char *str, int base, int i, t_color *rgb);
-void				rgb_4(char *str, int base, int i, t_color *rgb);
-void				rgb_6(char *str, int base, int i, t_color *rgb);
-void				ft_error();
+void				rgb_2(char *str, int base, t_color *rgb);
+void				rgb_4(char *str, int base, t_color *rgb);
+void				rgb_6(char *str, int base, t_color *rgb);
+void				ft_error(char *str);
 
 #endif

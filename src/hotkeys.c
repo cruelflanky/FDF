@@ -6,12 +6,12 @@
 /*   By: gaudry <gaudry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 20:33:49 by gaudry            #+#    #+#             */
-/*   Updated: 2020/01/24 17:47:48 by gaudry           ###   ########.fr       */
+/*   Updated: 2020/01/26 17:06:23 by gaudry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/fdf.h"
-#include "../inc/hotkeys.h"
+#include "fdf.h"
+#include "hotkeys.h"
 
 void	ft_zoom(int key, t_fdf *fdf)
 {
@@ -72,8 +72,8 @@ int		key_press(int key, void *param)
 	if (key == KEYCODE_RIGHT_ARROW || key == KEYCODE_LEFT_ARROW ||
 			key == KEYCODE_UP_ARROW || key == KEYCODE_DOWN_ARROW)
 		ft_move(key, fdf);
-	(key == KEYCODE_ISO) ? ft_iso(key, fdf) : 0;
-	(key == KEYCODE_PARALEL) ? ft_paralel(key, fdf) : 0;
+	(key == KEYCODE_ISO) ? ft_iso(fdf) : 0;
+	(key == KEYCODE_PARALEL) ? ft_paralel(fdf) : 0;
 	if (key == KEYCODE_Z_HEIGHT_DOWN || key == KEYCODE_Z_HEIGHT_UP)
 		ft_z_height(key, fdf);
 	if (key == KEYCODE_4_NUM || key == KEYCODE_2_NUM ||
@@ -84,6 +84,6 @@ int		key_press(int key, void *param)
 	if (key == KEYCODE_C)
 		ft_color(key, fdf);
 	if (key == KEYCODE_T)
-		ft_text(key, fdf);
+		ft_text(fdf);
 	return (0);
 }
