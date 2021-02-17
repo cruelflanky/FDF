@@ -7,6 +7,7 @@ FDF is a 42 Project to learn about 3d programming. The program takes a map as pa
 * You can rotate, increase altitude coefficient and zoom in/out. All transformations are done through matrixes transformations except for the one translating the picture.
 * Colors of the map altermate according to seasons and altitude. Colors slowly change to the next point's color. The program can parse colored maps and also handle transparency. Brightness of the image can also be decreased or increased. Please use menu (H button) for a full list of available options.
 
+Note that **macOS is only supported**.
 
 ## Mathematics Sources
 * Also many thanks to these very informative sites: https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/spherical-coordinates-and-trigonometric-functions
